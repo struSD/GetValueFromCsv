@@ -1,4 +1,4 @@
-﻿string filePath = ".....TouchPanelData.csv";
+﻿string filePath = "C:\\Users\\danul\\Downloads\\TouchPanelData.csv";
 string[] lines = File.ReadAllLines(filePath);
 int rowCount = lines.Length;
 int colCount = lines[0].Split(',').Length;
@@ -25,17 +25,17 @@ GetMaxNumbers(data);
 GetMaxSingleNum(1, data);
 
 
-void ShowMass(int[,] mass)
+
+for (int i = 0; i < rowCount; i++)
 {
-    for (int i = 0; i < rowCount; i++)
+    for (int j = 0; j < colCount; j++)
     {
-        for (int j = 0; j < colCount; j++)
-        {
-            Console.Write(data[i, j] + " ");
-        }
-        Console.WriteLine();
+        Console.Write(data[i, j] + " ");
     }
+    Console.WriteLine();
 }
+
+
 void GetMaxSingleNum(int row, int[,] mass)
 {
     int rowNumber = row;

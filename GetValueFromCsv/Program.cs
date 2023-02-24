@@ -1,57 +1,77 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
+﻿string filePath = ".....TouchPanelData.csv";
+string[] lines = File.ReadAllLines(filePath);
+int rowCount = lines.Length;
+int colCount = lines[0].Split(',').Length;
 
-string filePath = "\\..\\..\\..\\..\\..\\TouchPanelData.csv";
-StreamReader sr = new StreamReader(filePath);
-var dic = new Dictionary<int, FrameData>();
-int frameCount = 0;
-while (!sr.EndOfStream)
+int[,] data = new int[rowCount, colCount];
+for (int i = 0; i < rowCount; i++)
 {
-    string[] frame = sr.ReadLine().Split(',');
-
-    int[] tempArray = new int[frame.Length];
-    for (int i = 0; i < tempArray.Length; i++)
+    string[] values = lines[i].Split(',');
+    for (int j = 0; j < colCount; j++)
     {
-        if (int.TryParse(frame[i], out int result))
+        for (int k = 0; k < values.Length; k++)
         {
-            tempArray[i] = result;
+            if (string.IsNullOrEmpty(values[k]))
+            {
+                values[k] = "0";
+            }
+        }
+        data[i, j] = int.Parse(values[j]);
+    }
+}
+
+
+GetMaxNumbers(data);
+GetMaxSingleNum(1, data);
+
+
+void ShowMass(int[,] mass)
+{
+    for (int i = 0; i < rowCount; i++)
+    {
+        for (int j = 0; j < colCount; j++)
+        {
+            Console.Write(data[i, j] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+void GetMaxSingleNum(int row, int[,] mass)
+{
+    int rowNumber = row;
+    int max = mass[rowNumber, 0];
+
+    for (int j = 1; j < mass.GetLength(1); j++)
+    {
+        if (mass[rowNumber, j] > max)
+        {
+            max = mass[rowNumber, j];
         }
     }
-    var frameDataObj = new FrameData()
-    {
-        Values = tempArray
-    };
-    dic.Add(frameCount, frameDataObj);
-    frameCount++;
+    Console.WriteLine("Max value on row {0} - {1}", rowNumber, max);
 }
 
-
-
-foreach (var kvp in dic)
+void GetMaxNumbers(int[,] mass)
 {
-    Console.Write($"frame:{kvp.Key}: ");
-    foreach (var value in kvp.Value.Values)
+    for (int i = 0; i < mass.GetLength(0); i++)
     {
-        Console.Write($"{value} ");
+        int max = mass[i, 0];
+        int pos = 0;
+
+        for (int j = 1; j < mass.GetLength(1); j++)
+        {
+            if (mass[i, j] > max)
+            {
+                max = mass[i, j];
+                pos = j;
+            }
+        }
+        Console.WriteLine("Max value on row {0}: {1}, position: {2}", i, max, pos);
     }
-    Console.WriteLine();
-
-    Console.WriteLine($"value:{kvp.Value.Values[1]}");
 }
 
-foreach (var kvp in dic)
-{
-    Console.Write($"{kvp.Key}: ");
-    Console.Write($"position:{Array.IndexOf(kvp.Value.Values, kvp.Value.Values.Max())} max:{kvp.Value.Values.Max()} ");
-    Console.Write($"min:{kvp.Value.Values.Min()} ");
 
 
-    Console.WriteLine();
-}
-public class FrameData
-{
-    public int[] Values { get; set; }
-}
+
+
 

@@ -9,7 +9,7 @@ class Program
 {
     private static void Main(string[] args)
     {
-        string filePath = ".......TouchPanelData.csv";
+        string filePath = "C:\\Users\\danul\\Downloads\\TouchPanelData.csv";
         string[] lines = File.ReadAllLines(filePath);
         string[] size = lines[0].Split(',');
         int rowCount = lines.Length;
@@ -29,7 +29,10 @@ class Program
         }
 
         GetMaxNumbers(data);
-        GetMaxSingleNum(1, data);
+        GetMaxSingleNum(1, data); 
+        int[,] mass = GetMaxValuesArray(data);
+
+
 
         for (int i = 0; i < rowCount - 1; i++)
         {
@@ -72,6 +75,28 @@ class Program
                 }
                 Console.WriteLine("Max value  X:{0},Y:{1}\t num:{2}", i, pos, max);
             }
+        }
+
+        int[,] GetMaxValuesArray(int[,] array)
+        {
+            int[,] maxValuesArray = new int[array.GetLength(0), 1];
+
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                int max = int.MinValue;
+
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    if (array[i, j] > max)
+                    {
+                        max = array[i, j];
+                    }
+                }
+
+                maxValuesArray[i, 0] = max;
+            }
+
+            return maxValuesArray;
         }
     }
 }

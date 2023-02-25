@@ -11,33 +11,27 @@ class Program
     {
         string filePath = ".......TouchPanelData.csv";
         string[] lines = File.ReadAllLines(filePath);
+        string[] size = lines[0].Split(',');
         int rowCount = lines.Length;
-        int colCount = lines[0].Split(',').Length;
+        int matrixNum1 = int.Parse(size[0]);
+        int matrixnum2 = int.Parse(size[1]);
+        int colCount = matrixNum1 * matrixnum2;
 
-        int[,] data = new int[rowCount, colCount];
-        for (int i = 0; i < rowCount; i++)
+        int[,] data = new int[rowCount - 1, colCount];
+
+        for (int i = 1; i < lines.Length; i++)
         {
             string[] values = lines[i].Split(',');
             for (int j = 0; j < colCount; j++)
             {
-                for (int k = 0; k < values.Length; k++)
-                {
-                    if (string.IsNullOrEmpty(values[k]))
-                    {
-                        values[k] = "0";
-                    }
-                }
-                data[i, j] = int.Parse(values[j]);
+                data[i - 1, j] = int.Parse(values[j]);
             }
         }
-
 
         GetMaxNumbers(data);
         GetMaxSingleNum(1, data);
 
-
-
-        for (int i = 0; i < rowCount; i++)
+        for (int i = 0; i < rowCount - 1; i++)
         {
             for (int j = 0; j < colCount; j++)
             {
@@ -45,7 +39,6 @@ class Program
             }
             Console.WriteLine();
         }
-
 
         void GetMaxSingleNum(int row, int[,] mass)
         {
@@ -59,7 +52,7 @@ class Program
                     max = mass[rowNumber, j];
                 }
             }
-            Console.WriteLine("Max value on row {0} - {1}", rowNumber, max);
+            Console.WriteLine("Max value on frame {0} - {1}", rowNumber, max);
         }
 
         void GetMaxNumbers(int[,] mass)
@@ -77,7 +70,7 @@ class Program
                         pos = j;
                     }
                 }
-                Console.WriteLine("Max value on row {0}: {1}, position: {2}", i, max, pos);
+                Console.WriteLine("Max value  X:{0},Y:{1}\t num:{2}", i, pos, max);
             }
         }
     }

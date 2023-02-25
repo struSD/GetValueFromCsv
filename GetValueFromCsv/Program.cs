@@ -14,8 +14,8 @@ class Program
         string[] size = lines[0].Split(',');
         int rowCount = lines.Length;
         int matrixNum1 = int.Parse(size[0]);
-        int matrixnum2 = int.Parse(size[1]);
-        int colCount = matrixNum1 * matrixnum2;
+        int matrixNum2 = int.Parse(size[1]);
+        int colCount = matrixNum1 * matrixNum2;
 
         int[,] data = new int[rowCount - 1, colCount];
 

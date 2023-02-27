@@ -29,7 +29,7 @@ class Program
         }
 
         GetMaxNumbers(data);
-        GetMaxSingleNum(1, data); 
+        GetMaxSingleNum(1, data);
         int[,] mass = GetMaxValuesArray(data);
 
 
@@ -73,7 +73,8 @@ class Program
                         pos = j;
                     }
                 }
-                Console.WriteLine($"Max value N={matrixNum1}; M={matrixNum2}\t X={pos}\t DIV{matrixNum2}={pos / matrixNum2};\t Y={pos}\t MOD{matrixNum2}={pos / matrixNum1}");
+                Console.WriteLine($"Max value N={matrixNum1}; M={matrixNum2}\t X={pos}\t DIV{matrixNum2}={pos / matrixNum2};\t Y={pos}\t MOD{matrixNum2}={pos % matrixNum2}");
+
             }
         }
 

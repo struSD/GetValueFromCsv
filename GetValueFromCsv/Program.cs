@@ -73,7 +73,11 @@ class Program
                         pos = j;
                     }
                 }
-                Console.WriteLine("Max value  X:{0},Y:{1}\t num:{2}", i, pos, max);
+                int a = i;
+                int b = matrixNum2;
+                int quotient, remainder;
+                quotient = Math.DivRem(a, b, out remainder);
+                Console.WriteLine($"Max value N={matrixNum1}; M={matrixNum2}\t X={pos}\t DIV{matrixNum2}={quotient};\t Y={pos}\t MOD{matrixNum2}={remainder}");
             }
         }
 
@@ -100,3 +104,5 @@ class Program
         }
     }
 }
+
+
